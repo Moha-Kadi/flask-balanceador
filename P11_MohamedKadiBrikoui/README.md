@@ -35,7 +35,6 @@ Requisitos: Tener instalado Docker y Docker Compose.
 * **`Dockerfile`**: Instrucciones para construir la imagen de los servidores web, incluyendo la instalación de Python, dependencias y `curl` para los healthchecks.
 
 ## 4. Cómo probarlo
-Existen dos formas de verificar el funcionamiento:
 
 Ejecuta el script incluido en el proyecto:
 ```bash
