@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Instancia 1
+  web1:
+    build: .             # Construye usando el Dockerfile de la raíz
+    container_name: web1 # Nombre fijo para el contenedor
+    healthcheck:         # Docker verifica si la app está viva
+      test: ["CMD", "curl", "-f", "http://localhost:8000/status"]
+      interval: 10s      # Comprobar cada 10 segundos
+      timeout: 2s        # Tiempo máximo de espera
+      retries: 3         # Reintentos antes de marcar como "unhealthy"
+
+  # Instancia 2
+  web2:
+    build: .
+    container_name: web2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/status"]
+      interval: 10s
+      timeout: 2s
+      retries: 3
+
+  # Instancia 3
+  web3:
+    build: .
+    container_name: web3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/status"]
+      interval: 10s
+      timeout: 2s
+      retries: 3
+
+  # Balanceador de Carga NGINX 
+  nginx:
+    image: nginx:alpine  # Usamos la imagen oficial ligera de NGINX
+    container_name: balanceador
+    ports:
+      - "8080:80"        # Mapeo: Puerto 8080 
+    volumes:
+      # Inyectamos nuestro archivo de configuración dentro del contenedor
+      - ./docker/nginx_balanceador.conf:/etc/nginx/conf.d/default.conf
+    depends_on:          # Espera a que inicien los webs antes de iniciar nginx
+      - web1
+      - web2
+      - web3
