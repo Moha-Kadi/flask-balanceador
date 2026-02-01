@@ -13,7 +13,7 @@ Requisitos: Tener instalado Docker y Docker Compose.
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone [https://github.com/tu_usuario/flask-balanceador.git](https://github.com/Moha-Kadi/flask-balanceador)
+    git clone https://github.com/Moha-Kadi/flask-balanceador
     cd flask-balanceador
     ```
 
